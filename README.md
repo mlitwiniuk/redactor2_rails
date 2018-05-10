@@ -1,8 +1,8 @@
 # Imperavi Redactor for Rails 3.x - 4 Asset Pipeline 
 
-redactor2_rails integrates Imperavi Redactor for Rails Asset Pipeline (Rails 4, 3.x versions are supported)
+redactor3_rails integrates Imperavi Redactor for Rails Asset Pipeline (Rails 4, 3.x versions are supported)
 
-[![Gem Version](https://badge.fury.io/rb/redactor2_rails.svg)](https://badge.fury.io/rb/redactor2_rails)
+[![Gem Version](https://badge.fury.io/rb/redactor3_rails.svg)](https://badge.fury.io/rb/redactor3_rails)
 
 In order to use this gem, you must purchase a license from Imperavi 
 (https://imperavi.com/redactor/buy), download Redactor II files from them, 
@@ -18,7 +18,7 @@ And redactor.css file in the following location:
 
 Add this line to your application's Gemfile:
 
-    gem 'redactor2_rails'
+    gem 'redactor3_rails'
 
 And then execute:
 
@@ -26,7 +26,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install redactor2_rails
+    $ gem install redactor3_rails
 
 ### Generate models for store uploading files
 
@@ -38,11 +38,11 @@ Add this lines to your application's Gemfile:
 
 And then execute:
     
-    $ rails generate redactor2:install
+    $ rails generate redactor3:install
 
 or
 
-    $ rails generate redactor2:install --devise
+    $ rails generate redactor3:install --devise
 
     # --devise option generate user_id attribute for asset(Imeg, File) models. 
     # For more details show Devise gem.
@@ -59,13 +59,13 @@ Add this lines to your application's Gemfile:
     gem "carrierwave-mongoid", :require => "carrierwave/mongoid"
     gem "mini_magick"
 
-    $ rails generate redactor2:install
+    $ rails generate redactor3:install
 
 ### Include the Redactor assets
 
 Add to your `application.js`:
 
-      //= require redactor2_rails
+      //= require redactor3_rails
       //= require redactor
 
 Add to your `application.css`:
@@ -85,16 +85,16 @@ You need to put your textarea inside the form with `authenticity_token` field.
 
 If you need change some config in redactor, you can
 
-    $ rails generate redactor2:config
+    $ rails generate redactor3:config
 
-Then generate `app/assets/javascripts/redactor2_rails/config.js`.
+Then generate `app/assets/javascripts/redactor3_rails/config.js`.
 
 See the [Redactor Documentation](http://imperavi.com/redactor/docs/settings/) for a full list of configuration options.
 
 
 If You Want To setup a new language in Redactor you should do three things:
 
-In you file `app/assets/javascripts/redactor2_rails/config.js` set option
+In you file `app/assets/javascripts/redactor3_rails/config.js` set option
 
     "lang":'ru'
 
@@ -112,7 +112,7 @@ Add to your `application.js`:
 
 If you want to set a maximum image size used when a user uploads an image via carrierwave, open the uploader file and add add the following:
 
-    # app/uploaders/redactor2_rails_picture_uploader.rb:33
+    # app/uploaders/redactor3_rails_picture_uploader.rb:33
 
     process :resize_to_limit => [500, -1]
 
@@ -134,7 +134,7 @@ Full details of these can be found at [Redactor Plugins](http://imperavi.com/red
 
 ### Defining a Devise User Model
 
-By default redactor2_rails uses the `User` model.
+By default redactor3_rails uses the `User` model.
 
 You may use a different model by:
 
@@ -148,15 +148,15 @@ Create a new Migration: `rails g rename_user_id_to_new_user_id`
 
     class RenameUserIdToNewUserId < ActiveRecord::Migration
       def up
-        rename_column :redactor2_assets, :user_id, :admin_user_id
+        rename_column :redactor3_assets, :user_id, :admin_user_id
       end
 
       def down
-        rename_column :redactor2_assets, :admin_user_id, :user_id
+        rename_column :redactor3_assets, :admin_user_id, :user_id
       end
     end
 
-    # config/initializers/redactor2.rb
+    # config/initializers/redactor3.rb
     # Overrides the user class
 
     module RedactorRails
@@ -175,18 +175,18 @@ Create a new Migration: `rails g rename_user_id_to_new_user_id`
     class ApplicationController < ActionController::Base
       ...
 
-      def redactor2_authenticate_user!
+      def redactor3_authenticate_user!
         authenticate_admin_user! # devise before_filter
       end
 
-      def redactor2_current_user
+      def redactor3_current_user
         current_admin_user # devise user helper
       end
     end
 
 ## Statement
 
-`redactor2_rails` base on [SammyLin/redactor-rails](https://github.com/SammyLin/redactor-rails) project.
+`redactor3_rails` base on [SammyLin/redactor-rails](https://github.com/SammyLin/redactor-rails) project.
 
 
 ## Contributing
