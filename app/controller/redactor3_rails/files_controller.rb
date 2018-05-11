@@ -4,7 +4,7 @@ class Redactor3Rails::FilesController < ApplicationController
   def create
     @file = Redactor3Rails.file_model.new
 
-    file = params[:file]
+    file = Array.wrap(params[:file]).first
     @file.data = Redactor3Rails::Http.normalize_param(file, request)
     if @file.has_attribute?(:"#{Redactor3Rails.devise_user_key}")
       @file.send("#{Redactor3Rails.devise_user}=", redactor3_current_user)
@@ -12,7 +12,7 @@ class Redactor3Rails::FilesController < ApplicationController
     end
 
     if @file.save
-      render json: { url: @file.url, name: @file.filename }
+      render json: { filekey: { id: @file.id, url: @file.data.url } }
     else
       render json: { error: @file.errors }
     end
