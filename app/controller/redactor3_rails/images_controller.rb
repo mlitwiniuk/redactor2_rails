@@ -18,6 +18,19 @@ class Redactor3Rails::ImagesController < ApplicationController
     end
   end
 
+
+  def list
+    images = Redactor3Rails.image_model.order(created_at: :desc).all
+    images_array = images.to_a.map do |f|
+      { thumb: f.data.url(:thumb),
+        url: f.data.url,
+        id: f.id,
+        title: f.data_file_name
+      }
+    end
+    render json: images_array.to_json
+  end
+
   private
 
   def redactor3_authenticate_user!
